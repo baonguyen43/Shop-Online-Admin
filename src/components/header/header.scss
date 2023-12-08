@@ -1,0 +1,116 @@
+.header {
+  background-color: #AE1A28;
+  height: 60px;
+  border-bottom: 0.5px solid rgba(145, 158, 171, 0.3);
+  color: #fff;
+}
+.logo-header {
+  width: 220px;
+  .logo-header-img {
+    width: 30px;
+    height: 30px;
+  }
+}
+.search-bar {
+  position: relative;
+  .search-input {
+    width: 200px;
+    height: 35px;
+    font-size: 13px;
+    font-weight: 400;
+    background-color: #fafafa;
+    border-radius: 5px;
+    padding-left: 34px;
+    border: 0.5px solid rgba(145, 158, 171, 0.2);
+    &:focus {
+      outline: none;
+    }
+  }
+  .search-logo {
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    background-color: inherit;
+    .search-img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+.notification {
+  position: relative;
+  .noti-img {
+    width: 24px;
+    height: 24px;
+  }
+  .badge {
+    position: absolute;
+    bottom: 15px;
+    left: 12px;
+    color: #fff;
+    background-color: red;
+    border-radius: 50%;
+  }
+}
+.account-header {
+  cursor: pointer;
+  position: relative;
+  .avatar-account {
+    border: 2px solid rgba(145, 158, 171, 01);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+  }
+  .account-info{
+    .user-name{
+        font-size: 15px;
+    }
+    .user-role{
+        font-size: 13px;
+        color: #2a2a2a;
+        font-weight: 400;
+    }
+
+  }
+  .drop-down-header {
+    width: 24px;
+    height: 24px;
+  }
+  .sub-menu-account {
+    width: 150px;
+    border-radius: 5px;
+    // padding: 10px 0;
+    position: absolute;
+    z-index: 999;
+    top: 50px;
+    right: 0px;
+    // background-color: rgba(255, 255, 255, 0.9);
+    background-color: #fff;
+    border: 1px solid rgba(145, 158, 171, 0.2);
+    li {
+      padding: 10px 0 10px 20px;
+      &:last-child {
+        border-top: 1px solid rgba(145, 158, 171, 0.8);
+        color: red;
+      }
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 700px) {
+  .brand-header {
+    display: none;
+    color: white;
+  }
+  .account-info {
+    display: none;
+  }
+  .avatar-account {
+    border: 2px solid rgba(145, 158, 171, 01);
+    border-radius: 50%;
+    width: 45px !important;
+    height: 45px !important;
+  }
+}

@@ -1,0 +1,19 @@
+.img-product-detail{
+    width: 400px;
+    height: 400px;
+    object-fit:cover;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.rate-box{
+    display: flex;
+    flex-direction: row;
+    .rate-score,.rate-rank,.rate-review{
+        width: calc(100% /3 );
+        padding: 1em;
+    }
+    .rate-rank{
+        border-left: 1px solid #dee2e6!important;
+        border-right: 1px solid #dee2e6!important;
+    }
+}
