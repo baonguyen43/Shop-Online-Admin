@@ -23,6 +23,8 @@ import UpdateOrder from 'pages/orders/updateOrder';
 import SupplierList from 'pages/suppliers';
 import CreateSupplier from 'pages/suppliers/createSupplier';
 import UpdateSupplier from 'pages/suppliers/updateSupplier';
+import Report from 'pages/report';
+import ReportProduct from 'pages/report/reportProduct';
 
 
 export const routers = [
@@ -43,6 +45,7 @@ export const routers = [
             { path: LOCATIONS.ORDERs_CREATE, name: "orders CREATE", element: <CreateOrder /> },
 
 
+            { path: LOCATIONS.REPORT_PRODUCTS, name: "Report ", element: <ReportProduct /> },
 
             // { path: LOCATIONS.SIGNOUT, name: "Product List", element: <Login /> },
             

@@ -136,11 +136,11 @@ function ProductList() {
 
   const [isLoading, setIsLoading] = useState(null);
   const [product, setProduct] = useState([]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
+  // const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  // const onSelectChange = (newSelectedRowKeys) => {
+  //   console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+  //   setSelectedRowKeys(newSelectedRowKeys);
+  // };
 
 
   useEffect(() => {
@@ -148,6 +148,7 @@ function ProductList() {
       setIsLoading(true);
       const res = await getProduct();
       setProduct(res?.data);
+      console.log('res?.data :>> ', res?.data);
       setIsLoading(false);
     };
     fetchData();

@@ -33,6 +33,13 @@ const menuList = [
     active: false,
     src: LOCATIONS.ORDERs,
   },
+  {
+    label: "BÁO CÁO ",
+    active: false,
+    sub: [
+      { label: "Báo cáo sản phẩm", src: LOCATIONS.REPORT_PRODUCTS },
+    ],
+  },
   // {
   //   label: "Notifications",
   //   active: false,

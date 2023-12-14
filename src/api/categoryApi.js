@@ -1,7 +1,5 @@
-import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";  
 import { message } from "antd";
-import { Navigate, useParams } from "react-router-dom";
-import { LOCATIONS } from "constants";
+import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 
 const getCategory = async () => {
   try {
@@ -47,4 +45,4 @@ const updateCategory = async (id, updatedData) => {
 
 
 
-export { getCategory, getCategoryDetail, onAddCategory, updateCategory,};
+export { getCategory, getCategoryDetail, onAddCategory, updateCategory };

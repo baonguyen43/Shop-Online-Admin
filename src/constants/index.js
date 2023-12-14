@@ -6,7 +6,7 @@ export const LOCATIONS = {
   ORDERs_UPDATE:'/orders_update/:id',
   ORDERs_CREATE:'/create_order', 
   SIGNOUT: '/login',
-
+  REPORT_PRODUCTS: '/report_product', 
   PRODUCTS: "/products",
   PRODUCT_DETAIL: '/product_detail/:id',
   ADD_PRODUCT: '/add_product',
@@ -23,7 +23,8 @@ export const LOCATIONS = {
   CUSTOMERS: "/customers",
   ADD_CUSTOMER: "/add_customer",
   UPDATE_CUSTOMER: "/update_customer/:id",
-  LOGIN:"/login"
+  LOGIN:"/login",
+  REPORT: "/report",
 };
 
 
