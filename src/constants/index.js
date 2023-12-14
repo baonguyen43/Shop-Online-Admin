@@ -5,6 +5,7 @@ export const LOCATIONS = {
   ORDERs_DETAIL: '/orders/:id',
   ORDERs_UPDATE:'/orders_update/:id',
   ORDERs_CREATE:'/create_order', 
+  SIGNOUT: '/login',
 
   PRODUCTS: "/products",
   PRODUCT_DETAIL: '/product_detail/:id',

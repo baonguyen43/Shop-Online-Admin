@@ -1,11 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Button, Form, Input, Table, Upload, message } from "antd";
-import { memo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Loading from "components/loading";
-import { UploadOutlined } from "@ant-design/icons";
-import styles from "./createSupplier.module.scss";
-import { getSupplierDetail, onAddSupplier, updateSupplier } from "api/supplierApi";
+import { Button, Form, Input } from "antd";
+import { onAddSupplier } from "api/supplierApi";
+import { memo, useCallback } from "react";
 
 function CreateSupplier() {
  
@@ -26,7 +21,7 @@ function CreateSupplier() {
     return (
       <div>
         <div className="d-flex justify-content-between align-item-center">
-          <h4>Add new supplier</h4>
+          <h4>Thêm mới nhà cung cấp</h4>
           <button
             type="button"
             className="btn btn-danger"
@@ -43,7 +38,7 @@ function CreateSupplier() {
               onFinish={onFinish}
           >
             <Form.Item
-              label="Supplier Name"
+              label="Tên nhà cung cấp"
               name="name"
               rules={[
                 {
@@ -68,7 +63,7 @@ function CreateSupplier() {
             </Form.Item>
 
             <Form.Item
-              label="PhoneNumber"
+              label="Số điện thoại"
               name="phoneNumber"
               rules={[{ required: true, message: "PhoneNumber is required" },
             { type: "phone", message:  "Invalid phoneNumber format"},
@@ -78,7 +73,7 @@ function CreateSupplier() {
             </Form.Item>
 
             <Form.Item
-              label="Address"
+              label="Địa chỉ "
               name="address"
               rules={[
                 { required: true, message: "Address is required" },
@@ -93,13 +88,7 @@ function CreateSupplier() {
                 <Button type="primary" htmlType="update">
                   Lưu 
                 </Button>
-                <Button
-                  type="primary"
-                  onClick={() => form.resetFields()}
-                  danger
-                >
-                  Cài lại
-                </Button>
+              
               </div>
             </Form.Item>
           </Form>

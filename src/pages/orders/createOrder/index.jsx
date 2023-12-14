@@ -18,39 +18,37 @@ const { Option } = Select;
 const { Item: FormItem } = Form;
 function CreateOrder(props) {
   const [CreateOrder] = Form.useForm();
-  // const orderStatus = [
-  //   {
-  //     value: "WAITTING",
-  //     label: "WAITTING",
-  //   },
-  //   {
-  //     value: "COMPLETED",
-  //     label: "COMPLETED",
-  //   },
-  //   {
-  //     value: "CANCELED",
-  //     label: "CANCELED",
-  //   },
-  // ];
+  const orderStatus = [
+    {
+      value: "WAITTING",
+      label: "WAITTING",
+    },
+    {
+      value: "COMPLETED",
+      label: "COMPLETED",
+    },
+    {
+      value: "CANCELED",
+      label: "CANCELED",
+    },
+  ];
 
-  //  const orderPaymentType = [
-  //   {
-  //     value: "CASH",
-  //     label: "CASH",
-  //   },
-  //   {
-  //     value: "CREDITCARD",
-  //     label: "CREDITCARD",
-  //   },
-  // ];
+   const orderPaymentType = [
+    {
+      value: "CASH",
+      label: "CASH",
+    },
+    {
+      value: "CREDITCARD",
+      label: "CREDITCARD",
+    },
+  ];
   const [isLoading, setIsLoading] = useState(null);
   const [orderDetails, setOrderDetails] = useState([]);
   const [customers, setCustomer] = useState([]);
   const [employees, setEmployee] = useState([]);
   const [products, setProduct] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
+ 
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
@@ -65,31 +63,23 @@ function CreateOrder(props) {
     };
     getData();
   }, []);
-  const handleQuantityChange = (value) => {
-    setQuantity(value);
-  };
-  const handleProductChange = (value) => {
-    setSelectedProductId(value);
 
-    const product = products.find((item) => item.id === value);
-    setSelectedProduct(product);
-  };
 
-  // const onFinish = useCallback(async (values) => {
-  //   try {
-  //   console.log('values :>> ', values);
-  //    await axiosAdmin
-  //       .post("/orders", values)
-  //       .then((res) => {
-  //         message.success("Thành công")
-  //       })
-  //       .catch(async (err) => {
-  //         message.error("Thất bại")
-  //       });
-  //   } catch (error) {
-  //     message.error("Lỗi ");
-  //   }
-  // }, []);
+  const onFinish = useCallback(async (values) => {
+    try {
+    console.log('values :>> ', values);
+     await axiosAdmin
+        .post("/orders", values)
+        .then((res) => {
+          message.success("Thành công")
+        })
+        .catch(async (err) => {
+          message.error("Thất bại")
+        });
+    } catch (error) {
+      message.error("Lỗi ");
+    }
+  }, []);
 
   return (
     <>
@@ -104,7 +94,7 @@ function CreateOrder(props) {
         </button>
       </div>
 
-      <div className="{styles.main_form}">
+      {/* <div className="{styles.main_form}">
         <Select
           value={selectedProductId}
           onChange={handleProductChange}
@@ -129,9 +119,9 @@ function CreateOrder(props) {
           onChange={handleQuantityChange}
           style={{ width: "100%", marginTop: 16 }}
         />
-      </div>
+      </div> */}
 
-      {/* <Form
+      <Form
         form={CreateOrder}
         labelCol={{ span: 7 }}
         wrapperCol={{ span: 14 }}
@@ -185,7 +175,7 @@ function CreateOrder(props) {
           </Select>
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           label="Sản phẩm"
           name="productId"
           rules={[
@@ -211,7 +201,7 @@ function CreateOrder(props) {
               </Select>
             </div>
           ))}
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item
           label="Ngày tạo"
@@ -312,7 +302,7 @@ function CreateOrder(props) {
             </Button>
           </div>
         </Form.Item>
-      </Form> */}
+      </Form>
     </>
   );
 }

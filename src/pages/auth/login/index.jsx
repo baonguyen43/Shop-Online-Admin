@@ -1,121 +1,73 @@
-import React, { useEffect, useState } from "react";
-import { Form, Input } from "antd";
-import styles from "./login.module.scss";
-import { Link, useNavigate } from "react-router-dom";
-import { axiosAdminMan } from "helper/axios";
-
-function Login(props) {
-  const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
-  const onFinish = async (values) => {
-    setLoading(true);
-    try {
-      const result = await axiosAdminMan.post("/authEmployees/login", values);
-
-      localStorage.setItem("TOKEN", result.data.token);
-
-      localStorage.setItem("REFRESH_TOKEN", result.data.refreshToken);
-
-      // navigate("/dashboard");
-      window.location.reload();
-      
-    } catch (error) {
-      console.log("««««« error »»»»»", error);
+import React, { useState } from 'react';
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
+  MDBInput
+}
+from 'mdb-react-ui-kit';
+import { message } from 'antd';
+import { LOCATIONS } from 'constants';
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleLogin = () => {
+    if (email === 'admin@gmail.com' && password === '12345') {
+      message.success('Đăng nhập thành công');
+      window.location.href = LOCATIONS.PRODUCTS;
+    } else {
+      message.error('Đăng nhập thất bại');
     }
-    setTimeout(() => setLoading(false), 3000);
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN")
-
-    if (token) {
-      navigate("/dashboard")
-    }
-  }, [navigate]);
-
+  console.log('handleLogin :>> ', handleLogin);
   return (
-    <div className="d-flex" style={{ minHeight: "400px" }}>
-      <div className="w-100 d-none d-sm-block py-3">
-        <h2 className="text-center">Hi, Welcome back</h2>
-        <div className="h-100 d-flex align-items-center justify-content-center">
-          <img
-            className={styles.img_cover}
-            src={require("assets/images/login_img.png")}
-            alt="img_login"
-          />
-        </div>
-      </div>
-      <div className={styles.login_form}>
-        <h4>Sign in to E-Shop</h4>
-        {/* <div>New user? Create an account</div> */}
-        {/* <div className="alert bg-info">
-            Use email : demo@minimals.cc / password : demo1234
-          </div> */}
-        <Form
-          name="basic"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-          auto
-        >
-          <Form.Item
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-              {
-                type: "email",
-                message: "Email is not valid",
-              },
-            ]}
-          >
-            <Input className="py-3" placeholder="Email" />
-          </Form.Item>
+    <MDBContainer className="my-5">
 
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-              {
-                min: 6,
-                message: "Password must be greater than 6 characters",
-              },
-            ]}
-          >
-            <Input.Password
-              className="py-3"
-              visibilityToggle={false}
-              placeholder="Password"
-            />
-          </Form.Item>
+      <MDBCard>
+        <MDBRow className='g-0'>
 
-          <div className="mb-4 mx-1 text-end text-black-50 text-decoration-underline">
-            <Link to="#">Forgot password?</Link>
-          </div>
-          <Form.Item>
-            <button
-              type="submit"
-              className="btn btn-secondary w-100 py-3"
-              disabled={loading}
-            >
-              Login
-            </button>
-          </Form.Item>
-        </Form>
-      </div>
-    </div>
+          <MDBCol md='6'>
+            <MDBCardImage src={require("assets/images/login.jpeg")} alt="login form" className='rounded-start w-100'/>
+          </MDBCol>
+
+          <MDBCol md='6'>
+            <MDBCardBody className='d-flex flex-column'>
+
+              <div className='d-flex flex-row mt-2'>
+                <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: '#ff6219' }}/>
+                <span className="h1 fw-bold mb-0" style={{color:'#AE1A28'}}>Shop Online</span>
+              </div>
+
+              <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Đăng nhập Admin</h5>
+
+                <MDBInput wrapperClass='mb-4' label='Email ' id='email' type='email' value={email}  onChange={e => setEmail(e.target.value)} size="lg"/>
+                <MDBInput wrapperClass='mb-4' label='Mật khẩu'
+        id='password'
+        type='password'
+        value={password}
+        onChange={e => setPassword(e.target.value)} size="lg"/>
+
+              <MDBBtn className="mb-4 px-5" color='dark' size='lg' onClick={handleLogin}>Đăng nhập </MDBBtn>
+              <a className="small text-muted" href="#!">Quên mật khẩu?</a>
+              <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Không có tài khoản? <a href="#!" style={{color: '#393f81'}}>Đăng ký</a></p>
+
+              <div className='d-flex flex-row justify-content-start'>
+                <a href="#!" className="small text-muted me-1">Terms of use.</a>
+                <a href="#!" className="small text-muted">Privacy policy</a>
+              </div>
+
+            </MDBCardBody>
+          </MDBCol>
+
+        </MDBRow>
+      </MDBCard>
+
+    </MDBContainer>
   );
 }
 

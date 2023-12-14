@@ -3,31 +3,35 @@ import "numeral/locales/vi";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Form, Modal } from "antd";
-import EditIcon from "components/svg/edit";
-import styles from "./orderDetail.module.scss";
+import { Button, Form, InputNumber, Select } from "antd";
+import { getProduct } from "api/productApi";
 import numeral from "numeral";
+import styles from "./orderDetail.module.scss";
+import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 
 function OrdersDetail(props) {
   const params = useParams();
-
-  const [editOrderFrom] = Form.useForm();
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [products, setProduct] = useState([]);
 
   const [orderDetail, setOrderDetail] = useState({});
+  const { Option } = Select;
 
-  const [isOpenEditOrder, setIsOpenEditOrder] = useState(false);
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
 
-  useEffect(() => {
-    const getData = async () => {
-      const res = await getOrderDetail(params.id);
-      console.log("res :>> ", res);
-      if (res?.data) {
-        setOrderDetail(res.data);
-        console.log("res.data :>> ", res.data);
-      }
-    };
-    getData();
-  }, []);
+    orderDetail?.orderDetails?.forEach((item) => {
+      const productPrice =
+        ((item.product?.price * (100 - item.product?.discount)) / 100) *
+        item.quantity;
+
+      totalPrice += productPrice;
+    });
+
+    return totalPrice;
+  };
 
   const getStyleStatus = useCallback((text) => {
     switch (text) {
@@ -51,59 +55,90 @@ function OrdersDetail(props) {
         return null;
     }
   }, []);
+  
+  const handleQuantityChange = (value) => {
+    setQuantity(value);
+  };
+  const handleProductChange = (productId) => {
+    const selectedProduct = products.find((product) => product.id === productId);
+  setSelectedProductId(productId);
+  setSelectedProduct(selectedProduct);
+  };
+  useEffect(() => {
+    const getData = async () => {
+      const order = await getOrderDetail(params.id);
+      const product = await getProduct();
+      setProduct(product?.data);
+      if (order?.data) {
+        setOrderDetail(order.data);
+      }
+      console.log('product? :>> ', product?.data);
+      console.log('order :>> ', order?.data);
+    };
+    getData();
+  }, []);
+ 
 
-  // const rederTotalOriginPrice = useCallback(() => {
-  //   let total = 0;
 
-  //   orderDetail?.orderDetails?.forEach((item) => {
-  //     total +=
-  //       (parseInt(item.price) *
-  //         parseInt(item.quantity) *
-  //         (100 - parseInt(item.discount))) /
-  //       100;
-  //   });
+ 
+  
 
-  //   return total;
-  // }, [orderDetail?.orderDetails]);
+  // const handleAddToCart = () => {
+  //   if (selectedProduct && quantity > 0) {
+  //     const newOrderDetail = {
+  //       productId: selectedProduct.id,
+  //       price: selectedProduct.price,
+  //       discount: selectedProduct.discount,
+  //       quantity: quantity
+  //     };
+  
+  //     const updatedOrderData = {
+  //       ...orderDetail,
+  //       customerId: orderDetail?.customerId,
+  //       employeeId: orderDetail?.employeeId,
+  //       orderDetails: newOrderDetail
+  //     };
+  //     addOrder(updatedOrderData)
+  //       .then(response => {
+  //         console.log('OrderData updated successfully:', response);
+  //       })
+  //       .catch(error => {
+  //         console.error('Failed to update OrderData:', error);
+  //       });
+  //   }
 
-  const calculateTotalPrice = () => {
-    let totalPrice = 0;
-
-    orderDetail?.orderDetails?.forEach((item) => {
-      const productPrice =
-        ((item.product?.price * (100 - item.product?.discount)) / 100) *
-        item.quantity;
-
-      totalPrice += productPrice;
-    });
-
-    return totalPrice;
+  // };
+  
+  const handleAddToCart = () => {
+    if (selectedProduct && quantity > 0) {
+      const newOrderDetail = {
+        productId: selectedProductId,
+        price: selectedProduct.price,
+        discount: selectedProduct.discount,
+        quantity: quantity,
+      };
+      const updatedOrderDetails = [...orderDetail, newOrderDetail];
+      setOrderDetail(updatedOrderDetails);
+  
+      // Gọi API để cập nhật OrderDetails
+      const orderId = setOrderDetail 
+      axiosAdmin.put(`order/${orderId}`, updatedOrderDetails)
+        .then(response => {
+          console.log('Cập nhật OrderDetails thành công:', response.data);
+        })
+        .catch(error => {
+          console.error('Lỗi khi cập nhật OrderDetails:', error);
+        });
+      setSelectedProductId(null);
+      setSelectedProduct(null);
+      setQuantity(1);
+    }
   };
 
-  const closeModal = useCallback(() => {
-    setIsOpenEditOrder(false);
-  }, []);
 
   return (
     <>
-      {/* <Modal
-        open={isOpenEditOrder}
-        centered
-        title="Add Shipping Address"
-        onCancel={() => {
-          setIsOpenEditOrder(false);
-          editOrderFrom.resetFields();
-        }}
-        cancelText="Close"
-        okButtonProps={{ style: { display: "none" } }}
-      >
-        <FormEditOrder
-          editOrderFrom={editOrderFrom}
-          orderDetail={orderDetail}
-          closeModal={closeModal}
-        />
-      </Modal> */}
-
+      
       <div className={`container-fluid ${styles.order_detail}`}>
         {/* title */}
         <div className={`row ${styles.custom_row} ${styles.title}`}>
@@ -152,6 +187,8 @@ function OrdersDetail(props) {
                 <EditIcon /> Edit
               </button>
             </div> */}
+
+            {/* HEADER  */}
             <div className="d-flex justify-content-between align-item-center">
         <h4>CHI TIẾT ĐƠN HÀNG</h4>
         <button
@@ -161,7 +198,7 @@ function OrdersDetail(props) {
         >
           Trở lại
         </button>
-      </div>
+            </div>
           </div>
         </div>
 
@@ -189,6 +226,7 @@ function OrdersDetail(props) {
                   </div>
                 </div>
 
+ {/* orderDetail Data  */}
                 <div className={styles.cover_products}>
                   {orderDetail?.orderDetails?.map((item, index) => {
                     const showQuantityColumn = index < 5;
@@ -247,10 +285,53 @@ function OrdersDetail(props) {
                 </div>
               </div>
 
-           
+
+{/* THÊM orderDetails  */}
+                     <div className="{styles.main_form}">
+              <div style={{paddingLeft:'100px'}}> THÊM </div>
+          <div style={{display:'flex'}}> 
+          <span style={{width:'-webkit-fill-available'}}> Sản phẩm: </span>
+
+          <Select
+          value={selectedProductId}
+          onChange={handleProductChange}
+          style={{ width: "100%" }}
+        >
+          {products.map((product) => (
+            <Option key={product.id} value={product.id}>
+              {product.name}
+            </Option>
+          ))}
+        </Select>
+          </div> 
+       
+        {selectedProduct && (
+          <div>
+            <p>Giá: {selectedProduct.price}</p> 
+            <p>Giảm giá: {selectedProduct.discount}%</p>
+          </div>
+        )}
+        <div style={{display:'flex'}}> 
+          <span style={{width:'-webkit-fill-available'}}> Số lượng: </span>
+
+          <InputNumber
+          value={quantity}
+          min={1}
+          onChange={handleQuantityChange}
+          style={{ width: "100%" }}
+        />
+        </div> 
+        <div style={{paddingTop:'15px' }}>
+        <Button onChange={handleAddToCart} style={{ backgroundColor:' #dc3545', color:'white' }}> Thêm vào giỏ hàng </Button>
+          
+          </div> 
+      </div>
+
             </div>
           </div>
 
+
+          {/* CUSTOMER  */}
           <div
             className={`col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 ${styles.custom_col}`}
           >

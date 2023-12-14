@@ -94,7 +94,7 @@ function Order(props) {
       render: (text, record, index) => (
         <div className="cover_cus_info">
           <div className="cover_cus_name">
-            <span>{record?.customer?.lastName} {record?.customer?.firstName}</span>
+            <span>{record?.customer?.firstName} {record?.customer?.lastName}</span>
             {/* <span className="cus_phoneNumber">
               {record?.customer?.phoneNumber}
             </span> */}
@@ -172,7 +172,7 @@ function Order(props) {
       key: "status",
       sorter: (a, b) => a.status.localeCompare(b.status),
       render: (text, record, index) => (
-        <span className={`table_${text.toUpperCase()}`}>{text.toUpperCase()}</span>
+        <span className={`${styles.table} ${styles[`table_${text.toUpperCase()}`]}`}>{text.toUpperCase()}</span>
       ),
     },
 
@@ -246,7 +246,8 @@ function Order(props) {
           rowKey="_id"
           // rowSelection={rowSelection}
           columns={columns}
-          dataSource={category}
+          // dataSource={category}
+          dataSource={[...category].reverse()} 
          pagination=
           {{
             onChange: (page) => {

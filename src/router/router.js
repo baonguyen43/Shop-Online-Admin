@@ -12,6 +12,7 @@ import CreateCategory from 'pages/categories/createCategory';
 import UpdateCategory from 'pages/categories/updateCategory/categoryDetail';
 
 
+import Login from 'pages/auth/login';
 import CustomerList from 'pages/customers';
 import CreateCustomer from 'pages/customers/createCustomer';
 import UpdateCustomer from 'pages/customers/updateCustomer';
@@ -23,14 +24,19 @@ import SupplierList from 'pages/suppliers';
 import CreateSupplier from 'pages/suppliers/createSupplier';
 import UpdateSupplier from 'pages/suppliers/updateSupplier';
 
+
 export const routers = [
-    //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
+      {
+        isRoot: true,
+        path: LOCATIONS.LOGIN,
+        name: "Login",
+        element: <Login />,
+      },
     {
         path: LOCATIONS.HOME_PAGE,
         name: "Layout",
         element: < Layout />,
         children: [
-           
             { path: LOCATIONS.ORDERs, name: "New order", element: <Order /> },
             { path: LOCATIONS.ORDERs_DETAIL, name: "orders detail", element: <OrdersDetail /> },
             { path: LOCATIONS.ORDERs_UPDATE, name: "orders Update", element: <UpdateOrder /> },
@@ -38,6 +44,7 @@ export const routers = [
 
 
 
+            // { path: LOCATIONS.SIGNOUT, name: "Product List", element: <Login /> },
             
             { path: LOCATIONS.PRODUCTS, name: "Product List", element: <ProductList /> },
             { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: <ProductDetail /> },
@@ -88,7 +95,6 @@ export const routers = [
 ]
 
 // export const unAuthRouter = [
-//   //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
 //   { isRoot: true, element: <Login /> },
 //   {
 //     path: LOCATIONS.LOGIN,

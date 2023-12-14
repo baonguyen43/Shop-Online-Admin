@@ -1,10 +1,6 @@
 import { LOCATIONS } from "constants/index";
 const menuList = [
-  {
-    label: "New Order",
-    active: false,
-    src: LOCATIONS.ORDERs,
-  },
+
 
   {
     label: "SẢN PHẨM",
@@ -33,20 +29,25 @@ const menuList = [
     // sub: [{ label: "Quản lý khách hàng", src: LOCATIONS.CUSTOMERS }],
   },
   {
-    label: "Notifications",
+    label: "ĐƠN HÀNG",
     active: false,
-    src: LOCATIONS.MESSAGES,
+    src: LOCATIONS.ORDERs,
   },
-  {
-    label: "Setting",
-    active: false,
-    src: LOCATIONS.SETTING,
-  },
+  // {
+  //   label: "Notifications",
+  //   active: false,
+  //   src: LOCATIONS.MESSAGES,
+  // },
+  // {
+  //   label: "Setting",
+  //   active: false,
+  //   src: LOCATIONS.SETTING,
+  // },
   {
     label: "Sign Out",
     active: false,
     // icon: require("assets/icon-slide/door-svgrepo-com.png"),
-    src: LOCATIONS.SIGNOUT,
+    src: LOCATIONS.HOME_PAGE,
   },
 ];
 export default menuList;

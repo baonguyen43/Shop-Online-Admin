@@ -22,7 +22,7 @@ function Footer(props) {
           <div>{children}</div>
         
           <Link>
-            <h2 className="brand-header mb-1">Online-Shop</h2>
+            <h2 className="brand-header mb-1">Online Shop</h2>
           </Link>
         </div>
         {/* Right header */}
@@ -53,22 +53,18 @@ function Footer(props) {
             onClick={() => setIsActive((prev) => !prev)}
             className="account-header d-flex gap-2 align-items-center"
           >
-            <img
-              className="avatar-account"
-              src={require("assets/images/avatar-header.jpg")}
-              alt=""
-            />
+          
             <div className="account-info">
               <p  className="user-name m-0">
                 <b>Admintrator</b>
               </p>
-              <p className="user-role m-0">Admin</p>
+              {/* <p className="user-role m-0">Admin</p> */}
             </div>
-            <img
+            {/* <img
               className="drop-down-header"
               src={require("assets/icon-slide/arrow-down-svgrepo-com.png")}
               alt=""
-            />
+            /> */}
             <ul
               className={`${
                 !isActive ? "d-none" : ""

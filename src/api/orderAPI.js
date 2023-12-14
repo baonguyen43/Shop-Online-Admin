@@ -30,10 +30,12 @@ const addOrder = async (orderData) => {
     return error;
   }
 };
-const updateOrder = async (id, updatedData) => {
+const updateOrderDetail = async (id, updatedData) => {
   try {
     console.log('««««« id »»»»»', id);
     const response = await axiosAdmin.put(`/orders/${id}`, updatedData);
+    console.log('««««« updateOrderDetail »»»»»', response);
+
     message.success(response.data.message);
     return response;
   } catch (error) {
@@ -56,4 +58,4 @@ const updateStatus = async (id, updateStatus) => {
   }
 };
 
-export { addOrder, getOrder, getOrderDetail, updateOrder, updateStatus };
+export { addOrder, getOrder, getOrderDetail, updateOrderDetail, updateStatus };

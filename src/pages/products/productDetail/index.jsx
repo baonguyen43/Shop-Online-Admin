@@ -1,18 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Rate } from "antd";
 import { getProductDetail } from "api/productApi";
-import { Link } from "react-router-dom";
-import { Rate, Progress } from "antd";
 import Loading from "components/loading";
+import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 // Import style
-import "./productDetail.scss";
 import numeral from "numeral";
-const url = process.env.REACT_APP_BASE_URL;
+import "./productDetail.scss";
+
 function ProductDetail(props) {
   
  
   const [isLoading, setIsLoading] = useState(null);
-  const [currentTab, setCurrentTab] = useState("btn-desc");
   const [product, setProduct] = useState([]);
   const params = useParams();
   const handleProductStock = useCallback((stock) => {
@@ -22,9 +20,7 @@ function ProductDetail(props) {
     return <p className="text-danger fw-bold">Hết hàng</p>;
   }, []);
   
-   const selectTab = (event) => {
-    setCurrentTab(event.target.name);
-  };
+  
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);

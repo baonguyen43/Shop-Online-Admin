@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Button, Form, Input, Table, Upload, message } from "antd";
-import { memo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Loading from "components/loading";
-import { UploadOutlined } from "@ant-design/icons";
-import styles from "./updateSupplier.module.scss";
+import { Button, Form, Input } from "antd";
 import { getSupplierDetail, updateSupplier } from "api/supplierApi";
+import Loading from "components/loading";
+import { memo, useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function UpdateSupplier() {
  
@@ -118,13 +115,7 @@ function UpdateSupplier() {
                 <Button type="primary" htmlType="update">
                   Lưu
                 </Button>
-                <Button
-                  type="primary"
-                  onClick={() => form.resetFields()}
-                  danger
-                >
-                  Đóng
-                </Button>
+             
               </div>
             </Form.Item>
           </Form>

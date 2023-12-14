@@ -1,11 +1,9 @@
-import { Button, DatePicker, Form, Input, Select } from "antd";
-import TextArea from "antd/es/input/TextArea";
-import { getOrderDetail, updateOrder, updateStatus } from "api/orderAPI";
+import { Button, Form, Input, Select } from "antd";
+import { getOrderDetail, updateStatus } from "api/orderAPI";
 import { getListUserApi } from "api/userApi";
 import Loading from "components/loading";
 import { memo, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { formatDate } from "helper/formatDocuments";
 
 function UpdateOrder(props) {
   const { id } = useParams();
