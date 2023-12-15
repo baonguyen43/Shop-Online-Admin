@@ -19,9 +19,9 @@ const getProductsDiscount = async (discount) => {
     }
   };
 
-  const getProductsPriceless100000 = async () => {
+  const getProductsPricelDiscounted = async (total) => {
     try {
-      const result = await axiosAdmin.get("/product-priceless100000");
+      const result = await axiosAdmin.get("/product-pricediscount",{params:{total}});
       return result;
     } catch (error) {
       return error;
@@ -45,4 +45,39 @@ const getProductsDiscount = async (discount) => {
       return error;
     }
   };
-export { getProductsDiscount, getProductsCategory, getProductsPriceless100000, getProductsStockless, getProductsSupplier};
+
+  const getCustomerAddress =async (address) => {
+    try {
+      const result = await axiosAdmin.get("/customers-address",{params:{address}});
+      return result;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getCustomerAge = async (minAge, maxAge) => {
+    try {
+      const result = await axiosAdmin.get("/customers-age",{params:{minAge, maxAge}});
+      return result;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getOrderStatus = async (date, status) => {
+    try {
+      const result = await axiosAdmin.get("/customers-age",{params:{date, status}});
+      return result;
+    } catch (error) {
+      return error;
+    }
+  };
+  const getOrderPayment = async (paymentMethod, status) => {
+    try {
+      const result = await axiosAdmin.get("/orders-payment",{params:{paymentMethod, status}});
+      return result;
+    } catch (error) {
+      return error;
+    }
+  };
+export {getOrderPayment,getOrderStatus, getCustomerAge, getCustomerAddress, getProductsDiscount, getProductsCategory, getProductsPricelDiscounted, getProductsStockless, getProductsSupplier};
